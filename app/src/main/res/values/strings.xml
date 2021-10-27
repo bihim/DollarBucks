@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">DollarBucks</string>
+
+    <!--Registration-->
+    <string name="online_value">Online: 7.9k</string>
+    <string name="paid_value">Paid: 79k USD</string>
+    <string name="today_user_value">Today User: 8.90k</string>
+    <string name="proof">We pay everyday! See our recent proof</string>
+    <string name="proof_button"><u>See Now</u></string>
+    <string name="sign_up_bonus">$1 Signup Bonus!</string>
+    <string name="sign_up_bonus_2">Signup and Earn $1</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="invitation_hint">Invitation Code (1212)</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or_sign_in_with">Or Sign in With</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="sign_up_here">Sign Up Here</string>
+
+    <!--Login-->
+    <string name="paid">Paid</string>
+    <string name="twenty">$20</string>
+    <string name="paypal">Paypal</string>
+
+    <string name="on_hold">On Hold</string>
+    <string name="coin_base">Coinbase</string>
+    <string name="welcome">Welcome Back!</string>
+    <string name="login_account">Login to your Account</string>
+
+    <!--Survey-->
+    <string name="sample_survey">Android</string>
+    <string name="todays_survey">Today\'s Survey</string>
+    <string name="surveys_available">6 Surveys Available</string>
+</resources>

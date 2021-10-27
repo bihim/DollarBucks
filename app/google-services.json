@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "771461701544",
+    "project_id": "dollar-bucks",
+    "storage_bucket": "dollar-bucks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:771461701544:android:3da83523857e452ad5079d",
+        "android_client_info": {
+          "package_name": "com.tanvirhossen.dollarbucks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "771461701544-bb99sels7c8asm23qagnia7k9i291cea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAliBxWnil6aGTjgbPjFNn7illFJ-IC10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "771461701544-bb99sels7c8asm23qagnia7k9i291cea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
