@@ -29,7 +29,7 @@ import java.util.Map;
 import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
-    private LinearLayout materialButtonLogout, survey, youtube;
+    private LinearLayout materialButtonLogout, survey, youtube, proof, profile;
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
     private SharedPreferences sharedPreferences;
@@ -57,6 +57,12 @@ public class MainActivity extends AppCompatActivity {
         youtube.setOnClickListener(v -> {
             startActivity(new Intent(this, YoutubeActivity.class));
         });
+        proof.setOnClickListener(v -> {
+            startActivity(new Intent(this, ProofActivity.class));
+        });
+        profile.setOnClickListener(v -> {
+            startActivity(new Intent(this, ProfileActivity.class));
+        });
     }
 
     private void findViewById() {
@@ -66,5 +72,7 @@ public class MainActivity extends AppCompatActivity {
         materialButtonLogout = findViewById(R.id.logout);
         survey = findViewById(R.id.goto_survey);
         youtube = findViewById(R.id.main_tv);
+        proof = findViewById(R.id.main_proof);
+        profile = findViewById(R.id.my_profile);
     }
 }

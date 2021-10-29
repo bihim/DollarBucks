@@ -46,7 +46,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegistrationActivity extends AppCompatActivity {
     private MaterialButton goToLogin, signUp;
-    private EditText email, password, invitationCode;
+    private EditText email, password, invitationCode, name;
     private FirebaseAuth firebaseAuth;
     private SharedPreferences sharedPreferences;
     private ProgressBar progressBar;
@@ -67,7 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
             finish();
         });
         signUp.setOnClickListener(v -> {
-            if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty() || invitationCode.getText().toString().isEmpty()) {
+            if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty() || invitationCode.getText().toString().isEmpty()||name.getText().toString().isEmpty()) {
                 Toasty.error(this, "Please fill all of the fields", Toast.LENGTH_SHORT, true).show();
             } else {
                 progressBar.setVisibility(View.VISIBLE);
@@ -131,6 +131,10 @@ public class RegistrationActivity extends AppCompatActivity {
             Logger.d("Added email successfully");
             Map<String, Object> userRefCode = new HashMap<>();
             userRefCode.put("ref", invitationCode.getText().toString());
+            userRefCode.put("points", "0");
+            userRefCode.put("balance", "0");
+            userRefCode.put("pending", "0");
+            userRefCode.put("name", name.getText().toString());
             db.collection("profile").document(task.getResult().getUser().getUid()).set(userRefCode, SetOptions.merge()).addOnCompleteListener(task2 -> Logger.d("Added ref code successfully"));
         });
     }
@@ -226,6 +230,7 @@ public class RegistrationActivity extends AppCompatActivity {
         goToLogin = findViewById(R.id.go_to_login);
         email = findViewById(R.id.registration_email);
         password = findViewById(R.id.registration_password);
+        name = findViewById(R.id.registration_name);
         invitationCode = findViewById(R.id.registration_invitation);
         signUp = findViewById(R.id.registration_sign_up);
         progressBar = findViewById(R.id.progress_reg);

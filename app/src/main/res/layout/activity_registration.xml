@@ -111,6 +111,32 @@
                     android:layout_height="match_parent">
 
                     <EditText
+                        android:id="@+id/registration_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:autofillHints="emailAddress"
+                        android:background="@android:color/transparent"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawableTint="@color/email_password_color"
+                        android:gravity="center_horizontal"
+                        android:hint="Name"
+                        android:inputType="textEmailAddress" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_45sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_10sdp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
                         android:id="@+id/registration_password"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
