@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DollarBucks">
         <activity
+            android:name=".view.WithdrawSendActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.WithdrawActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ProfileActivity"
             android:exported="false" />
         <activity

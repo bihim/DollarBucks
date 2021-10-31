@@ -46,7 +46,7 @@ public class YoutubeAdapter extends RecyclerView.Adapter<YoutubeAdapter.YoutubeV
         Logger.addLogAdapter(new AndroidLogAdapter());
         YoutubeModel selectedModel = youtubeModels.get(position);
         holder.textViewDuration.setText(selectedModel.getTime());
-        holder.textViewCPC.setText(selectedModel.getCpc());
+        holder.textViewCPC.setText(selectedModel.getCpc()+"$");
         holder.itemView.setOnClickListener(v -> {
             Logger.d("Calling intent!!");
             /*Intent intent = new Intent(

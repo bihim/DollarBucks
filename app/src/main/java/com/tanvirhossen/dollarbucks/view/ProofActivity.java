@@ -42,6 +42,7 @@ public class ProofActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_proof);
         findViewById();
+        imageButtonBack.setOnClickListener(v-> onBackPressed());
         setRecyclerView();
         //setExistImage(imageViewDemo, demoImage);
     }
@@ -81,5 +82,10 @@ public class ProofActivity extends AppCompatActivity {
             byte[] bytes = Base64.decode(base64String, Base64.DEFAULT);
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

@@ -3,6 +3,7 @@ package com.tanvirhossen.dollarbucks.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private TextView points, balance, pending, username;
     private FirebaseAuth firebaseAuth;
-    private MaterialButton materialButtonPointsToDollar;
+    private MaterialButton materialButtonPointsToDollar, payment;
     private TextView textViewPointsToDollar;
 
     @Override
@@ -36,7 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
         findViewById();
         setButtonCallBacks();
         setValues();
-
     }
 
     private void setValues() {
@@ -58,6 +58,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void setButtonCallBacks() {
         materialButtonPointsToDollar.setOnClickListener(v -> {
             convertPointToDollars();
+        });
+        payment.setOnClickListener(v->{
+            startActivity(new Intent(this, WithdrawActivity.class));
         });
     }
 
@@ -101,5 +104,6 @@ public class ProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.profile_name);
         materialButtonPointsToDollar = findViewById(R.id.points_to_dollar_button);
         textViewPointsToDollar = findViewById(R.id.points_to_dollar_text);
+        payment = findViewById(R.id.profile_payment);
     }
 }
