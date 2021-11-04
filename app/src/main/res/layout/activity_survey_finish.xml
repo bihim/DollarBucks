@@ -49,12 +49,18 @@
                 android:textSize="@dimen/_30ssp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Please click ad and get bonus"
+                android:layout_marginBottom="@dimen/_5sdp"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/survey_finish_ad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="#4B4B4B"
-                android:text="Double"
+                android:text="Get Bonus"
                 android:textColor="#4CAF50"
                 app:cornerRadius="@dimen/_20sdp"
                 app:icon="@drawable/ic_video"

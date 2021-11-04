@@ -3,14 +3,37 @@
     package="com.tanvirhossen.dollarbucks">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_main"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".ApplicationClass"
         android:theme="@style/Theme.DollarBucks">
+        <activity
+            android:name=".view.InvitationCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.PDFReaderActivity"
+            android:exported="false" />
+
+        <meta-data
+            android:name="com.startapp.sdk.APPLICATION_ID"
+            android:value="210250192" />
+        <meta-data
+            android:name="com.startapp.sdk.RETURN_ADS_ENABLED"
+            android:value="false" />
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="_aNTzAZ37RslSyE0_p6Clnc8oVL36MmKoPcONc_T3myDxepCevOFEc_Hk0CGT655JBsgif_cV2vc0mVyP1TfqS" />
+
+        <activity
+            android:name=".view.TransactionActivity"
+            android:exported="false" />
         <activity
             android:name=".view.WithdrawSendActivity"
             android:exported="false" />

@@ -9,12 +9,23 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdListener;
+import com.applovin.mediation.MaxError;
+import com.applovin.mediation.MaxReward;
+import com.applovin.mediation.MaxRewardedAdListener;
+import com.applovin.mediation.ads.MaxInterstitialAd;
+import com.applovin.mediation.ads.MaxRewardedAd;
+import com.applovin.sdk.AppLovinSdk;
+import com.applovin.sdk.AppLovinSdkConfiguration;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,8 +38,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.adlisteners.VideoListener;
 import com.tanvirhossen.dollarbucks.R;
 import com.tanvirhossen.dollarbucks.adapter.SurveyAdapter;
+import com.tanvirhossen.dollarbucks.global.GlobalVals;
 import com.tanvirhossen.dollarbucks.model.SurveyModel;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +54,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import es.dmoral.toasty.Toasty;
 
@@ -58,6 +73,9 @@ public class SurveyActivity extends AppCompatActivity {
     private int count = 0;
     private FirebaseFirestore db;
     private FirebaseAuth firebaseAuth;
+    private boolean isStartIo;
+    private int retryAttempt;
+    private String intentValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,24 +84,25 @@ public class SurveyActivity extends AppCompatActivity {
         findViewById();
         setSupportActionBar(materialToolbar);
         //setupSurveyModel();
-        String intentValue = getIntent().getStringExtra("survey");
+        intentValue = getIntent().getStringExtra("survey");
+        isStartIo = getIntent().getBooleanExtra("isStartIo", true);
         getAllQuestions(intentValue);
-        imageButtonBack.setOnClickListener(v->{
+        imageButtonBack.setOnClickListener(v -> {
             onBackPressed();
         });
     }
 
-    private void getAllQuestions(String docPath){
+    private void getAllQuestions(String docPath) {
         db.collection("survey").document(docPath).get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()){
-                if (task.getResult().exists()){
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
                     surveyModelArrayList = new ArrayList<>();
                     Map<String, Object> map = task.getResult().getData();
-                    for (Map.Entry<String, Object> entry : map.entrySet()){
+                    for (Map.Entry<String, Object> entry : map.entrySet()) {
                         Logger.d(entry.getKey());
                         ArrayList<String> answers = (ArrayList<String>) entry.getValue();
                         StringBuilder answerBuilder = new StringBuilder();
-                        for(String answer: answers){
+                        for (String answer : answers) {
                             answerBuilder.append(answer);
                             answerBuilder.append(",");
                         }
@@ -131,11 +150,11 @@ public class SurveyActivity extends AppCompatActivity {
                         Logger.d("Added Successfully");
                         progressBar.setVisibility(View.GONE);
                     })
-            .addOnFailureListener(e -> {
-                Logger.e("Failure: "+e.getMessage());
-                progressBar.setVisibility(View.GONE);
-                Toasty.error(this, "Error: "+e.getMessage(), Toasty.LENGTH_SHORT).show();
-            });
+                    .addOnFailureListener(e -> {
+                        Logger.e("Failure: " + e.getMessage());
+                        progressBar.setVisibility(View.GONE);
+                        Toasty.error(this, "Error: " + e.getMessage(), Toasty.LENGTH_SHORT).show();
+                    });
 
             if (surveyModelArrayList.size() > initialIndex + 1) {
                 //Logger.d(initialIndex);
@@ -190,14 +209,163 @@ public class SurveyActivity extends AppCompatActivity {
 
         MaterialButton materialButtonAd = dialog.findViewById(R.id.dialog_ad);
         MaterialButton materialButtonSkip = dialog.findViewById(R.id.dialog_skip);
+        TextView textViewCountdown = dialog.findViewById(R.id.dialog_countdown);
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new CountDownTimer(15 * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        textViewCountdown.setVisibility(View.VISIBLE);
+                        textViewCountdown.setText("Wait for " + millisUntilFinished / 1000 + " secons to appear button");
+                        materialButtonAd.setVisibility(View.GONE);
+                        materialButtonSkip.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        textViewCountdown.setVisibility(View.GONE);
+                        materialButtonAd.setVisibility(View.VISIBLE);
+                        materialButtonSkip.setVisibility(View.VISIBLE);
+                    }
+                }.start();
+            }
+        }, 10);
+
+        db.collection("profile").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    double balance = Double.parseDouble(task.getResult().getString("balance"));
+                    balance = balance + 0.1;
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("balance", String.format("%.2f", balance));
+                    db.collection("profile").document(firebaseAuth.getCurrentUser().getUid()).set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Logger.d("Balance Added");
+                        }
+                    });
+                }
+            }
+        });
+
         initialIndex++;
         materialButtonAd.setOnClickListener(v -> {
-            Toasty.info(activity, "Ad showing", Toasty.LENGTH_SHORT).show();
-            dialog.dismiss();
+            db.collection("profile").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        int bonusAds = Integer.parseInt(task.getResult().getString("bonusAds"));
+                        bonusAds = bonusAds + 1;
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("bonusAds", String.valueOf(bonusAds));
+                        db.collection("profile").document(firebaseAuth.getCurrentUser().getUid()).set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Logger.d("Bonus Added");
+                            }
+                        });
+                    }
+                }
+            });
+
+            if (isStartIo) {
+                StartAppAd.showAd(this);
+                dialog.dismiss();
+            } else {
+                AppLovinSdk.getInstance(this).setMediationProvider("max");
+                AppLovinSdk.initializeSdk(this, new AppLovinSdk.SdkInitializationListener() {
+                    @Override
+                    public void onSdkInitialized(final AppLovinSdkConfiguration configuration) {
+                        MaxRewardedAd maxRewardedAd = MaxRewardedAd.getInstance(GlobalVals.applovinReward, SurveyActivity.this);
+                        //Logger.d("Is ad ready: " + interstitialAd.isReady());
+                        maxRewardedAd.loadAd();
+                        maxRewardedAd.showAd();
+                        maxRewardedAd.setListener(new MaxRewardedAdListener() {
+                            @Override
+                            public void onRewardedVideoStarted(MaxAd ad) {
+
+                            }
+
+                            @Override
+                            public void onRewardedVideoCompleted(MaxAd ad) {
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onUserRewarded(MaxAd ad, MaxReward reward) {
+
+                            }
+
+                            @Override
+                            public void onAdLoaded(MaxAd ad) {
+                                Logger.d("Is ad ready: " + maxRewardedAd.isReady());
+                                retryAttempt = 0;
+                            }
+
+                            @Override
+                            public void onAdDisplayed(MaxAd ad) {
+
+                            }
+
+                            @Override
+                            public void onAdHidden(MaxAd ad) {
+                                maxRewardedAd.loadAd();
+                            }
+
+                            @Override
+                            public void onAdClicked(MaxAd ad) {
+
+                            }
+
+                            @Override
+                            public void onAdLoadFailed(String adUnitId, MaxError error) {
+                                // Interstitial ad failed to load
+                                // We recommend retrying with exponentially higher delays up to a maximum delay (in this case 64 seconds)
+                                retryAttempt++;
+                                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        maxRewardedAd.loadAd();
+                                    }
+                                }, delayMillis);
+                            }
+
+                            @Override
+                            public void onAdDisplayFailed(MaxAd ad, MaxError error) {
+                                // Interstitial ad failed to display. We recommend loading the next ad
+                                maxRewardedAd.loadAd();
+                            }
+                        });
+                    }
+                });
+                dialog.dismiss();
+            }
+
+            //Toasty.info(activity, "Ad showing", Toasty.LENGTH_SHORT).show();
         });
 
         materialButtonSkip.setOnClickListener(v -> {
-            dialog.dismiss();
+
+            if (isStartIo) {
+                final StartAppAd rewardedVideo = new StartAppAd(this);
+                rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
+                rewardedVideo.showAd();
+                rewardedVideo.setVideoListener(new VideoListener() {
+                    @Override
+                    public void onVideoCompleted() {
+                        Logger.d("I am at finished");
+                    }
+                });
+                dialog.dismiss();
+            } else {
+                dialog.dismiss();
+            }
+
         });
 
         dialog.show();
@@ -213,18 +381,175 @@ public class SurveyActivity extends AppCompatActivity {
 
         MaterialButton materialButtonAd = dialog.findViewById(R.id.dialog_ad);
         MaterialButton materialButtonSkip = dialog.findViewById(R.id.dialog_skip);
-        materialButtonAd.setOnClickListener(v -> {
-            Toasty.info(activity, "Ad showing", Toasty.LENGTH_SHORT).show();
-            startActivity(new Intent(activity, SurveyFinishActivity.class));
-            dialog.dismiss();
+        TextView textViewCountdown = dialog.findViewById(R.id.dialog_countdown);
 
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                new CountDownTimer(15 * 1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        textViewCountdown.setVisibility(View.VISIBLE);
+                        textViewCountdown.setText("Wait for " + millisUntilFinished / 1000 + " secons to appear button");
+                        materialButtonAd.setVisibility(View.GONE);
+                        materialButtonSkip.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        textViewCountdown.setVisibility(View.GONE);
+                        materialButtonAd.setVisibility(View.VISIBLE);
+                        materialButtonSkip.setVisibility(View.VISIBLE);
+                    }
+                }.start();
+            }
+        }, 10);
+
+        db.collection("profile").document(firebaseAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    double balance = Double.parseDouble(task.getResult().getString("balance"));
+                    balance = balance + 0.1;
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("balance", String.format("%.2f", balance));
+                    db.collection("profile").document(firebaseAuth.getCurrentUser().getUid()).set(data, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Logger.d("Balance Added");
+                        }
+                    });
+                }
+            }
+        });
+
+        materialButtonAd.setOnClickListener(v -> {
+            if (isStartIo) {
+                StartAppAd.showAd(this);
+                intentCall();
+                /*startActivity(new Intent(activity, SurveyFinishActivity.class));
+                finish();*/
+                dialog.dismiss();
+            } else {
+                AppLovinSdk.getInstance(this).setMediationProvider("max");
+                AppLovinSdk.initializeSdk(this, new AppLovinSdk.SdkInitializationListener() {
+                    @Override
+                    public void onSdkInitialized(final AppLovinSdkConfiguration configuration) {
+                        MaxRewardedAd maxRewardedAd = MaxRewardedAd.getInstance(GlobalVals.applovinReward, SurveyActivity.this);
+                        //Logger.d("Is ad ready: " + interstitialAd.isReady());
+                        maxRewardedAd.loadAd();
+                        maxRewardedAd.showAd();
+                        maxRewardedAd.setListener(new MaxRewardedAdListener() {
+                            @Override
+                            public void onRewardedVideoStarted(MaxAd ad) {
+
+                            }
+
+                            @Override
+                            public void onRewardedVideoCompleted(MaxAd ad) {
+                                dialog.dismiss();
+                            }
+
+                            @Override
+                            public void onUserRewarded(MaxAd ad, MaxReward reward) {
+
+                            }
+
+                            @Override
+                            public void onAdLoaded(MaxAd ad) {
+                                Logger.d("Is ad ready: " + maxRewardedAd.isReady());
+                                retryAttempt = 0;
+                            }
+
+                            @Override
+                            public void onAdDisplayed(MaxAd ad) {
+
+                            }
+
+                            @Override
+                            public void onAdHidden(MaxAd ad) {
+                                maxRewardedAd.loadAd();
+                            }
+
+                            @Override
+                            public void onAdClicked(MaxAd ad) {
+
+                            }
+
+                            @Override
+                            public void onAdLoadFailed(String adUnitId, MaxError error) {
+                                // Interstitial ad failed to load
+                                // We recommend retrying with exponentially higher delays up to a maximum delay (in this case 64 seconds)
+                                retryAttempt++;
+                                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        maxRewardedAd.loadAd();
+                                    }
+                                }, delayMillis);
+                            }
+
+                            @Override
+                            public void onAdDisplayFailed(MaxAd ad, MaxError error) {
+                                // Interstitial ad failed to display. We recommend loading the next ad
+                                maxRewardedAd.loadAd();
+                            }
+                        });
+                    }
+                });
+                /*startActivity(new Intent(activity, SurveyFinishActivity.class));
+                finish();*/
+                intentCall();
+                dialog.dismiss();
+            }
+
+            //Toasty.info(activity, "Ad showing", Toasty.LENGTH_SHORT).show();
         });
 
         materialButtonSkip.setOnClickListener(v -> {
-            startActivity(new Intent(activity, SurveyFinishActivity.class));
-            dialog.dismiss();
+
+            if (isStartIo) {
+                final StartAppAd rewardedVideo = new StartAppAd(this);
+                rewardedVideo.loadAd(StartAppAd.AdMode.REWARDED_VIDEO);
+                rewardedVideo.showAd();
+                rewardedVideo.setVideoListener(new VideoListener() {
+                    @Override
+                    public void onVideoCompleted() {
+                        Logger.d("I am at finished");
+                    }
+                });
+                /*startActivity(new Intent(activity, SurveyFinishActivity.class));
+                finish();*/
+                intentCall();
+                dialog.dismiss();
+            } else {
+                /*startActivity(new Intent(activity, SurveyFinishActivity.class));
+                finish();*/
+                intentCall();
+                dialog.dismiss();
+            }
+
         });
         dialog.show();
+    }
+
+    private void intentCall() {
+        Intent intent = new Intent(this, SurveyFinishActivity.class);
+        intent.putExtra("survey", intentValue);
+        intent.putExtra("isStartIo", isStartIo);
+        startActivity(intent);
+        finish();
+    }
+
+    private void interstitialAd() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            public void run() {
+                // yourMethod();
+            }
+        }, 15000);
     }
 
     @Override

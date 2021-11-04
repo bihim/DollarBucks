@@ -3,8 +3,11 @@ package com.tanvirhossen.dollarbucks.view;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +20,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.tanvirhossen.dollarbucks.R;
+import com.tanvirhossen.dollarbucks.global.GlobalVals;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,7 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseFirestore firebaseFirestore;
     private TextView points, balance, pending, username;
     private FirebaseAuth firebaseAuth;
-    private MaterialButton materialButtonPointsToDollar, payment;
+    private MaterialButton materialButtonPointsToDollar, payment, transaction, materialButtonLogout, proof, invite;
     private TextView textViewPointsToDollar;
 
     @Override
@@ -48,7 +52,7 @@ public class ProfileActivity extends AppCompatActivity {
                     username.setText(task.getResult().get("name").toString());
                     points.setText("Points: " + task.getResult().get("points").toString());
                     balance.setText("Balance: " + task.getResult().get("balance").toString());
-                    textViewPointsToDollar.setText("10000 = $0.10\n"+task.getResult().get("balance").toString());
+                    textViewPointsToDollar.setText("10000 = $0.10\n" + task.getResult().get("balance").toString());
                     pending.setText("Pending: " + task.getResult().get("pending").toString());
                 }
             }
@@ -56,11 +60,21 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setButtonCallBacks() {
-        materialButtonPointsToDollar.setOnClickListener(v -> {
-            convertPointToDollars();
+        invite.setOnClickListener(v -> startActivity(new Intent(this, InvitationCodeActivity.class)));
+        materialButtonPointsToDollar.setOnClickListener(v -> convertPointToDollars());
+        payment.setOnClickListener(v -> startActivity(new Intent(this, WithdrawActivity.class)));
+        transaction.setOnClickListener(v -> startActivity(new Intent(this, TransactionActivity.class)));
+        materialButtonLogout.setOnClickListener(v -> {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(GlobalVals.login, false);
+            editor.apply();
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this, SplashScreenActivity.class));
+            finishAffinity();
         });
-        payment.setOnClickListener(v->{
-            startActivity(new Intent(this, WithdrawActivity.class));
+        proof.setOnClickListener(v -> {
+            startActivity(new Intent(this, ProofActivity.class));
         });
     }
 
@@ -70,9 +84,9 @@ public class ProfileActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 double balance = Double.parseDouble(task.getResult().get("balance").toString());
                 int points = Integer.parseInt(task.getResult().get("points").toString());
-                if (points >= 1000) {
-                    int getPoints = points - 1000;
-                    double getBalance = balance + 0.01;
+                if (points >= 10000) {
+                    int getPoints = points - 10000;
+                    double getBalance = balance + 0.1;
                     Map<String, Object> updatedBalance = new HashMap<>();
                     updatedBalance.put("points", String.valueOf(getPoints));
                     updatedBalance.put("balance", String.format("%.2f", getBalance));
@@ -94,6 +108,12 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setValues();
+    }
+
     private void findViewById() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
@@ -105,5 +125,9 @@ public class ProfileActivity extends AppCompatActivity {
         materialButtonPointsToDollar = findViewById(R.id.points_to_dollar_button);
         textViewPointsToDollar = findViewById(R.id.points_to_dollar_text);
         payment = findViewById(R.id.profile_payment);
+        transaction = findViewById(R.id.transaction);
+        materialButtonLogout = findViewById(R.id.logout);
+        proof = findViewById(R.id.proof);
+        invite = findViewById(R.id.invite);
     }
 }

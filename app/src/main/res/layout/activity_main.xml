@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_color"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,22 +27,92 @@
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:text="My Account" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="@dimen/_50sdp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/holo_blue_bright"
-                    android:padding="@dimen/_5sdp"
-                    android:src="@drawable/ic_person" />
-            </com.google.android.material.card.MaterialCardView>
+            <ImageView
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_40sdp"
+                android:padding="@dimen/_5sdp"
+                android:src="@drawable/my_account" />
 
         </LinearLayout>
 
-        <include layout="@layout/registration_top" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:background="@drawable/circle_reg_top"
+                    android:backgroundTint="@color/online_color" />
+
+                <TextView
+                    android:id="@+id/online"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/online_value"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_3sdp"
+                    android:background="@drawable/circle_reg_top"
+                    android:backgroundTint="@color/paid_color" />
+
+                <TextView
+                    android:id="@+id/paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/paid_value"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+                    android:background="@drawable/circle_reg_top"
+                    android:backgroundTint="@color/today_user_color" />
+
+                <TextView
+                    android:id="@+id/today_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/today_user_value"
+                    android:textSize="@dimen/_10ssp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,18 +129,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/_50sdp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/holo_blue_dark"
-                        android:padding="@dimen/_5sdp"
-                        android:src="@drawable/ic_video" />
-                </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/survey" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,7 +159,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/holo_red_dark"
+                        android:background="@android:color/holo_green_dark"
                         android:padding="@dimen/_5sdp"
                         android:src="@drawable/ic_video" />
                 </com.google.android.material.card.MaterialCardView>
@@ -119,18 +181,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/_50sdp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/holo_purple"
-                        android:padding="@dimen/_5sdp"
-                        android:src="@drawable/ic_video" />
-                </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/dollar" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -141,7 +195,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/logout"
+                android:id="@+id/cashout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -149,18 +203,10 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="@dimen/_50sdp">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/holo_orange_dark"
-                        android:padding="@dimen/_5sdp"
-                        android:src="@drawable/ic_video" />
-                </com.google.android.material.card.MaterialCardView>
+                <ImageView
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/transaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -173,6 +219,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/rate_now_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_10sdp"
@@ -210,6 +257,7 @@
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/rate_now"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_9sdp"
@@ -220,7 +268,8 @@
 
         <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -481,18 +530,19 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Discover"
             android:layout_gravity="start"
             android:layout_margin="@dimen/_10sdp"
+            android:text="Discover"
             android:textSize="@dimen/_16ssp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_10sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:elevation="0dp">
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/_10sdp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -501,11 +551,13 @@
                 android:padding="@dimen/_15sdp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/titlePDF1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5 Freelancing Ideas"
@@ -514,8 +566,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/storyPDF1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:text="How to start freelancing in 2021\nYou can now start freelancing"
                         android:textColor="#000"
                         android:textSize="@dimen/_10ssp" />
@@ -523,20 +578,24 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btnPDF1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_29sdp"
+                    android:layout_weight="1"
                     android:backgroundTint="#017F47"
                     android:text="Read" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_10sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:elevation="0dp">
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/_10sdp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -545,11 +604,13 @@
                 android:padding="@dimen/_15sdp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/titlePDF2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5 Freelancing Ideas"
@@ -558,8 +619,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/storyPDF2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:text="How to start freelancing in 2021\nYou can now start freelancing"
                         android:textColor="#000"
                         android:textSize="@dimen/_10ssp" />
@@ -567,20 +631,24 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btnPDF2"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_29sdp"
+                    android:layout_weight="1"
                     android:backgroundTint="#017F47"
                     android:text="Read" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="@dimen/_10sdp"
             android:layout_margin="@dimen/_10sdp"
-            android:elevation="0dp">
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/_10sdp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -589,11 +657,13 @@
                 android:padding="@dimen/_15sdp">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/titlePDF3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="5 Freelancing Ideas"
@@ -602,8 +672,11 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/storyPDF3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
                         android:text="How to start freelancing in 2021\nYou can now start freelancing"
                         android:textColor="#000"
                         android:textSize="@dimen/_10ssp" />
@@ -611,15 +684,122 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
+                    android:id="@+id/btnPDF3"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_29sdp"
+                    android:layout_weight="1"
                     android:backgroundTint="#017F47"
                     android:text="Read" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/_15sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titlePDF4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5 Freelancing Ideas"
+                        android:textColor="#017F47"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/storyPDF4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="How to start freelancing in 2021\nYou can now start freelancing"
+                        android:textColor="#000"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPDF4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_29sdp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#017F47"
+                    android:text="Read" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:elevation="0dp"
+            app:cardCornerRadius="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:padding="@dimen/_15sdp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/titlePDF5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="5 Freelancing Ideas"
+                        android:textColor="#017F47"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/storyPDF5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="How to start freelancing in 2021\nYou can now start freelancing"
+                        android:textColor="#000"
+                        android:textSize="@dimen/_10ssp" />
+
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPDF5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_29sdp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#017F47"
+                    android:text="Read" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

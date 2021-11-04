@@ -134,6 +134,7 @@ public class RegistrationActivity extends AppCompatActivity {
             userRefCode.put("points", "0");
             userRefCode.put("balance", "0");
             userRefCode.put("pending", "0");
+            userRefCode.put("bonusAds", "0");
             userRefCode.put("name", name.getText().toString());
             db.collection("profile").document(task.getResult().getUser().getUid()).set(userRefCode, SetOptions.merge()).addOnCompleteListener(task2 -> Logger.d("Added ref code successfully"));
         });
@@ -196,7 +197,7 @@ public class RegistrationActivity extends AppCompatActivity {
         call.enqueue(new Callback<CountryModel>() {
             @Override
             public void onResponse(Call<CountryModel> call, Response<CountryModel> response) {
-                if (!arrayListCountry.contains(response.body().getCountrycode())) { //!check here
+                if (arrayListCountry.contains(response.body().getCountrycode())) { //!check here
                     db.collection("notice").document("notice").get().addOnSuccessListener(documentSnapshot -> {
                         boolean notice = documentSnapshot.getBoolean("notice");
                         if (notice) {
@@ -211,7 +212,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     //Toasty.error(RegistrationActivity.this, "You are not eligible", Toasty.LENGTH_SHORT).show();
                 } else {
                     //Toasty.success(RegistrationActivity.this, "You are eligible", Toasty.LENGTH_SHORT).show();
-
                 }
             }
 

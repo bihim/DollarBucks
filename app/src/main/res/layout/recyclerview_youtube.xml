@@ -20,7 +20,7 @@
             android:layout_marginEnd="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginBottom="@dimen/_30sdp"
-            android:text="Watch full videos for reward"
+            android:text="Watch videos for 2 minute"
             android:textColor="#A4A4A4"/>
 
         <ImageView
@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end"
+                android:visibility="invisible"
                 android:text="2.00m"
                 android:textColor="@color/white"/>
 

@@ -33,7 +33,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
 
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         //checking if current user exists or not
@@ -43,7 +43,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(GlobalVals.login, currentUser != null);
         editor.apply();
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,8 @@ public class SplashScreenActivity extends AppCompatActivity {
     }
 
     private void loginAuth() {
-        sharedPreferences = getSharedPreferences(GlobalVals.sharedPrefName, MODE_PRIVATE);
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        /*sharedPreferences = getSharedPreferences(GlobalVals.sharedPrefName, MODE_PRIVATE);
         //these are self explanatory
         if (!sharedPreferences.contains(GlobalVals.login)) {
             Logger.d("No Login Field");
@@ -73,6 +74,15 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Logger.d("Not Logged In");
                 gotoActivity(RegistrationActivity.class);
             }
+        }*/
+        Logger.addLogAdapter(new AndroidLogAdapter());
+        if (user == null) {
+            Logger.e("No User");
+            gotoActivity(RegistrationActivity.class);
+        } else {
+
+            Logger.d(user.getUid());
+            gotoActivity(MainActivity.class);
         }
     }
 

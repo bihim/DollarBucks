@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_30sdp"
-                android:src="@drawable/main_logo" />
+                android:src="@drawable/logo_second" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -226,7 +226,7 @@
                 android:paddingHorizontal="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_40sdp"
-                android:text="@string/sign_up"
+                android:text="Sign In"
                 app:cornerRadius="@dimen/_20sdp" />
 
             <ProgressBar
@@ -348,14 +348,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/already_have_an_account" />
+                    android:text="Dont have an account?" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/go_to_registration"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="?selectableItemBackground"
-                    android:text="@string/sign_up_here"
+                    android:text="Sign In Here"
                     android:textColor="@color/button_color" />
 
             </LinearLayout>

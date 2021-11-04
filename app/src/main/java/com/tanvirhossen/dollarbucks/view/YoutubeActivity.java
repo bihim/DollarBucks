@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -31,6 +33,7 @@ public class YoutubeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private YoutubeAdapter youtubeAdapter;
     private ProgressBar progressBar;
+    private boolean isOnResumeCalled;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +44,19 @@ public class YoutubeActivity extends AppCompatActivity {
         setRecyclerView();
     }
 
-    private void setRecyclerView(){
+    private void setRecyclerView() {
         progressBar.setVisibility(View.VISIBLE);
         firebaseFirestore.collection("youtube").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     progressBar.setVisibility(View.GONE);
                     youtubeModelArrayList = new ArrayList<>();
-                    for (DocumentSnapshot documentSnapshot: task.getResult().getDocuments()){
+                    for (DocumentSnapshot documentSnapshot : task.getResult().getDocuments()) {
                         String url = documentSnapshot.get("url").toString();
                         String time = documentSnapshot.get("time").toString();
                         String cpc = documentSnapshot.get("cpc").toString();
-                        Logger.d("url: "+url+" time: "+time+" cpc: "+cpc);
+                        Logger.d("url: " + url + " time: " + time + " cpc: " + cpc);
                         youtubeModelArrayList.add(new YoutubeModel(url, time, cpc));
                     }
                     youtubeAdapter = new YoutubeAdapter(youtubeModelArrayList, YoutubeActivity.this);
@@ -65,13 +68,13 @@ public class YoutubeActivity extends AppCompatActivity {
         });
     }
 
-    private void buttonCallBacks(){
-        imageButtonBack.setOnClickListener(v->{
+    private void buttonCallBacks() {
+        imageButtonBack.setOnClickListener(v -> {
             onBackPressed();
         });
     }
 
-    private void findViewById(){
+    private void findViewById() {
         firebaseFirestore = FirebaseFirestore.getInstance();
         Logger.addLogAdapter(new AndroidLogAdapter());
         imageButtonBack = findViewById(R.id.youtube_back);

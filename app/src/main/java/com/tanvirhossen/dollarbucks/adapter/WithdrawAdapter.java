@@ -38,6 +38,7 @@ public class WithdrawAdapter extends  RecyclerView.Adapter<WithdrawAdapter.Withd
     @Override
     public void onBindViewHolder(@NonNull WithdrawViewHolder holder, int position) {
         holder.imageView.setImageResource(withdrawList.get(position));
+        holder.withdrawTextView.setText("$"+getTransactionMoney(position));
         holder.materialButton.setOnClickListener(v->{
             Logger.addLogAdapter(new AndroidLogAdapter());
             Logger.d("This is "+position);
@@ -56,10 +57,25 @@ public class WithdrawAdapter extends  RecyclerView.Adapter<WithdrawAdapter.Withd
     public class WithdrawViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         MaterialButton materialButton;
+        TextView withdrawTextView;
         public WithdrawViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.withdraw_logo);
             materialButton = itemView.findViewById(R.id.withdraw_button);
+            withdrawTextView = itemView.findViewById(R.id.withdraw_money);
+        }
+    }
+
+    private String getTransactionMoney(int position) {
+        switch (position) {
+            case 0:
+                return "6";
+            case 1:
+                return "5";
+            case 2:
+                return "4";
+            default:
+                return "8";
         }
     }
 }

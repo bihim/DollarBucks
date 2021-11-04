@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:src="@drawable/main_logo" />
+                android:src="@drawable/logo_second" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -64,6 +64,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/sign_up_bonus"
                 android:textSize="@dimen/_16ssp"
+                android:visibility="gone"
                 android:textStyle="bold" />
 
             <TextView
@@ -71,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/sign_up_bonus_2"
+                android:visibility="gone"
                 android:textSize="@dimen/_11ssp" />
 
             <com.google.android.material.card.MaterialCardView
@@ -160,17 +162,24 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:src="@drawable/invite"
+                        />
 
                     <EditText
                         android:id="@+id/registration_invitation"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
                         android:autofillHints="emailAddress"
                         android:background="@android:color/transparent"
-                        android:drawableStart="@drawable/ic_invitation"
-                        android:drawableTint="@color/invitation_color"
                         android:gravity="center_horizontal"
                         android:hint="@string/invitation_hint"
                         android:inputType="number" />

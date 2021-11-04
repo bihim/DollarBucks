@@ -44,18 +44,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_blue_dark"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_point" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/dollar" />
 
                     <TextView
                         android:id="@+id/profile_points"
@@ -76,18 +68,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_red_dark"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_balance" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/dollar" />
 
                     <TextView
                         android:id="@+id/profile_balance"
@@ -107,18 +91,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_purple"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_video" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/pending" />
 
                     <TextView
                         android:id="@+id/profile_pending"
@@ -152,18 +128,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_blue_dark"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_point" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/dollar" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -209,18 +177,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_purple"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_point" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/transaction" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -236,6 +196,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/transaction"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="0.7"
@@ -264,18 +225,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_blue_dark"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_point" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/dollar" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -320,18 +273,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_purple"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_point" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/transaction" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -347,6 +292,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/proof"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="0.7"
@@ -375,18 +321,10 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:cardCornerRadius="@dimen/_50sdp">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@android:color/holo_blue_dark"
-                            android:padding="@dimen/_5sdp"
-                            android:src="@drawable/ic_point" />
-                    </com.google.android.material.card.MaterialCardView>
+                    <ImageView
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:src="@drawable/invite" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -402,6 +340,7 @@
                 </LinearLayout>
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/invite"
                     android:layout_height="wrap_content"
                     android:layout_width="0dp"
                     android:layout_weight="0.7"
@@ -412,6 +351,11 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"/>
 
     </LinearLayout>
 
